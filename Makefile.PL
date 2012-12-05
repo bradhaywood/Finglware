@@ -8,7 +8,7 @@ all_from 'lib/Finglware.pm';
 author   q{Brad Haywood <brad@perlpowered.com>};
 license  'artistic2';
 
-perl_version 5.010;
+perl_version 5.012;
 
 tests_recursive('t');
 
@@ -16,7 +16,7 @@ resources (
    #homepage   => 'http://yourwebsitehere.com',
    #IRC        => 'irc://irc.perl.org/#Finglware',
    license    => 'http://www.perlfoundation.org/artistic_license_2_0',
-   #repository => 'git://github.com/Brad Haywood/Finglware.git',
+   repository => 'https://github.com/bradhaywood/Finglware.git',
    bugtracker => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Finglware',
 );
 
