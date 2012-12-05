@@ -1,0 +1,168 @@
+NAME
+    Finglware - A new way to look at Perl 5
+
+DESCRIPTION
+    OOP frameworks are awesome, but I don't always want/need to use them. I
+    started Finglware to define OOP in the way that I wanted to use it. It's
+    fairly similar to the standard Perl 5 model, but with automatically
+    generated constructors and an "__init" method as an initialiser. There's
+    a few extra classes bundled with this distribution. You get "fmt" and
+    "type". I wanted a bit of Go language in there, hence the "fmt" class.
+    The "type" class includes a method called "struct", which allows you to
+    define structs with data types (HashRef, ArrayRef, String, Int, or your
+    own). Finglware is built from "Class::LOP" (Lightweight Object
+    Protocol), so it's pretty fast.
+
+SYNOPSIS
+  Using structs
+        use Finglware;
+    
+        type::struct( 'People' => {
+            name => 'String',
+            age  => 'Int',
+            opt  => 'HashRef',
+        });
+    
+        my $person1 = People->new(
+            name => 'Ted Winkleman',
+            age => 35,
+            opt => { 'cant_eat' => 'cheese' }
+        );
+
+        my $person2 = People->new(
+            name => 'Kelly Kroolberg',
+            age => "25"
+        );
+
+        say "Person 1 is called " . $person1->name;
+        say "Person 2 got married and changed her surname";
+        $person2->name('Kelly Simpson');
+        say "Person 2 is called " . $person2->name;
+
+  Inheritance
+        # Base (Super) class
+        package SchoolMember {
+            use Finglware;
+    
+            # create attributes easily with "attr"
+            # to give them values at start up, you can do so in __init
+            # which is called after the constructor
+            attr (
+                'name',
+                'age'
+            );
+    
+            method __init {
+                my ($name, $age) = @_;
+                # you can set multiple attributes with "attr_set"
+                $self->attr_set(
+                    name => $name,
+                    age  => $age,
+                );
+                say "New Member Started [$self]: " . $self->name;
+            }
+    
+            method tell {
+                say "Name: " . $self->name . ", Age: " . $self->age;
+            }
+        }
+    
+        package Teacher {
+            use Finglware;
+            extends 'SchoolMember';
+    
+            attr ( 'salary' );
+    
+            method __init {
+                my ($name, $age, $salary) = @_;
+                $self->salary($salary);
+                $self->SUPER::__init(@_);
+            }
+    
+            method tell {
+                $self->SUPER::tell();
+                say "Salary: " . $self->salary;
+            }
+        }
+
+        package Student {   
+            use Finglware;
+            extends 'SchoolMember';
+        
+            attr ( 'marks' );
+        
+            method __init {
+                my ($name, $age, $marks) = @_;
+                $self->marks($marks);
+                $self->SUPER::__init(@_);
+            }
+
+            method tell {
+                $self->SUPER::tell();
+                fmt::Println("Marks: " . $self->marks);
+            }
+        }
+
+        my $teacher = Teacher->new('Mr. Somers', 45, 35000);
+        my $student = Student->new('Nancy Wilson', 19, 75);
+        my @members = ($teacher, $student);
+    
+        for my $member (@members) {
+            $member->tell();
+        }
+
+METHODS
+    Finglware supports method modifiers similar to Moose, with the same
+    syntax. Modifiers available are: "after", "before", "around" and
+    "override".
+
+  Example modifier
+        func foo { say "Hi there" }
+    
+        override 'foo' => sub {
+            say "Hello, foo!"
+        };
+
+        # foo() now displays "Hello, foo!"
+
+  attr
+    Defines an attribute for the current class. The attribute can then be
+    set and retrieved by the instance
+
+        package MyClass {
+            use Finglware;
+            attr 'name';
+        
+            method __init {
+                my $name = shift;
+                $self->name( $name );
+            }
+        }
+
+        my $class = MyClass->new('Sam');
+        say $class->name; # Sam
+        say $class->name('Barry'); # Barry
+
+  attr_set
+    Sets multiple attributes in one go.
+
+        $self->attr_set(
+            name => 'foo',
+            bar  => 'baz',
+            lang => 'perl
+        );
+
+        # or.. 
+
+        method __init {
+            my (%args) = @_;
+            $self->attr_set(%args);
+        }
+
+AUTHOR
+    Brad Haywood <brad@perlpowered.com>
+
+LICENSE
+    This library is free software. You can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
