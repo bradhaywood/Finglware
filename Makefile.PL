@@ -8,7 +8,7 @@ all_from 'lib/Finglware.pm';
 author   q{Brad Haywood <brad@perlpowered.com>};
 license  'artistic2';
 
-perl_version 5.012;
+perl_version 5.014;
 
 tests_recursive('t');
 
