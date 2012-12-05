@@ -11,7 +11,9 @@ DESCRIPTION
     The "type" class includes a method called "struct", which allows you to
     define structs with data types (HashRef, ArrayRef, String, Int, or your
     own). Finglware is built from "Class::LOP" (Lightweight Object
-    Protocol), so it's pretty fast.
+    Protocol), so it's pretty fast. Finally, it imports 5.010 features for
+    you (say, switch statements and state), imports warnings/strict and
+    includes hook modifiers ("around", "before", "after" and "override").
 
 SYNOPSIS
   Using structs
@@ -117,9 +119,10 @@ METHODS
     "override".
 
   Example modifier
+        use Finglware with => 'hooks';
         func foo { say "Hi there" }
     
-        override 'foo' => sub {
+        override 'foo' => func {
             say "Hello, foo!"
         };
 
