@@ -145,8 +145,7 @@ Finally, it imports 5.010 features for you (say, switch statements and state), i
             'age'
         );
     
-        method __init {
-            my ($name, $age) = @_;
+        method __init($name, $age) {
             # you can set multiple attributes with "attr_set"
             $self->attr_set(
                 name => $name,
@@ -166,8 +165,7 @@ Finally, it imports 5.010 features for you (say, switch statements and state), i
     
         attr ( 'salary' );
     
-        method __init {
-            my ($name, $age, $salary) = @_;
+        method __init($name, $age, $salary) {
             $self->salary($salary);
             $self->SUPER::__init(@_);
         }
@@ -184,8 +182,7 @@ Finally, it imports 5.010 features for you (say, switch statements and state), i
         
         attr ( 'marks' );
         
-        method __init {
-            my ($name, $age, $marks) = @_;
+        method __init($name, $age, $marks) {
             $self->marks($marks);
             $self->SUPER::__init(@_);
         }
