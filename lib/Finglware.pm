@@ -207,7 +207,8 @@ Finally, it imports 5.010 features for you (say, switch statements and state), i
 =cut
 
 use Class::LOP;
-use Method::Signatures::Simple ();
+use Import::Into;
+use Method::Signatures::Simple;
 use B::Hooks::EndOfScope;
 
 use namespace::clean;
@@ -241,17 +242,7 @@ sub import {
     Class::LOP->init($class)
         ->import_methods($caller, @methods);
 
-    Method::Signatures::Simple->import(
-        into        => scalar($caller),
-        name        => 'method',
-        invocant    => '$self',
-    );
-    
-    Method::Signatures::Simple->import(
-        into        => scalar($caller),
-        name        => 'func',
-        invocant    => '$self',
-    );
+    Method::Signatures::Simple->import::into($caller);
 
     on_scope_end {
         namespace::clean->clean_subroutines($caller, qw( method func ));

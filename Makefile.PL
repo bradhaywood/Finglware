@@ -33,6 +33,7 @@ requires (
    #'Foo::Bar::Module' => 5.0401,
    'Method::Signatures::Simple',
    'B::Hooks::EndOfScope',
+   'Import::Into',
    'Class::LOP',
    'namespace::clean',
 );
