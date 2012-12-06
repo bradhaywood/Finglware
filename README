@@ -54,8 +54,7 @@ SYNOPSIS
                 'age'
             );
     
-            method __init {
-                my ($name, $age) = @_;
+            method __init($name, $age) {
                 # you can set multiple attributes with "attr_set"
                 $self->attr_set(
                     name => $name,
@@ -75,8 +74,7 @@ SYNOPSIS
     
             attr ( 'salary' );
     
-            method __init {
-                my ($name, $age, $salary) = @_;
+            method __init($name, $age, $salary) {
                 $self->salary($salary);
                 $self->SUPER::__init(@_);
             }
@@ -93,8 +91,7 @@ SYNOPSIS
         
             attr ( 'marks' );
         
-            method __init {
-                my ($name, $age, $marks) = @_;
+            method __init($name, $age, $marks) {
                 $self->marks($marks);
                 $self->SUPER::__init(@_);
             }
