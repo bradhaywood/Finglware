@@ -98,10 +98,7 @@ Finglware - A new way to look at Perl 5
 
 =head1 DESCRIPTION
 
-OOP frameworks are awesome, but I don't always want/need to use them. I started Finglware to define OOP in the way that I wanted to use it. It's fairly similar to the standard Perl 5 model, but with automatically generated constructors and an C<__init> method as an initialiser.
-There's a few extra classes bundled with this distribution. You get C<fmt> and C<type>. I wanted a bit of Go language in there, hence the C<fmt> class. The C<type> class includes a method called C<struct>, which allows you to define structs with data types (HashRef, ArrayRef, String, Int, or your own).
-Finglware is built from C<Class::LOP> (Lightweight Object Protocol), so it's pretty fast.
-Finally, it imports 5.010 features for you (say, switch statements and state), imports warnings/strict and includes hook modifiers (C<around>, C<before>, C<after> and C<override>).
+The best way to describe Finglware, is 'I want a different way of writing Perl 5, but not too different. I want all them boilerplate pragmas included in one module. I want 5.10 features imported by default. I'd like method modifiers, but I want them to be modular so I only load them when I need. I want a nicer, but minimal OOP framework to work with that's still flexible with automatic constructors and accessors. I want all of this, but I still want it to be fast. This module must also have a silly name.'. I think "Finglware" covers all of that. Especially the last requirement. Oh yeah, it has structs, too.
 
 =head1 SYNOPSIS
 
