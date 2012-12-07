@@ -29,6 +29,7 @@ package
             my ($name, $hash) = @_;
             {
                 no strict 'refs';
+                no warnings 'redefine';
                 *{"${name}::new"} = sub {
                     my ($self, %args) = @_;
                     my $klass = {};
