@@ -224,14 +224,21 @@ sub import {
 
     my @methods = qw<attr attr_set extends>;
     if ($opts{with}) {
-        if (grep { $_ eq 'hooks' } $opts{with}) {
-            push @methods, qw(
-                after
-                before
-                around
-                override
-            );
+        for my $plugin ($opts{with}) {
+            $plugin = 'Finglware::Plugin::' . $plugin;
+            eval "use $plugin;";
+            Class::LOP->import::into($plugin);
+            $plugin->import::into($caller);
         }
+        ## Old code where hooks were internal
+        #if (grep { $_ eq 'hooks' } $opts{with}) {
+        #    push @methods, qw(
+        #        after
+        #        before
+        #        around
+        #        override
+        #    );
+        #}
     }
 
     Class::LOP->init($class)
