@@ -5,7 +5,7 @@ sub import {
     my $caller = caller;
     # need to find a better way of doing this
     # to make it easier when creating plugins!
-    Class::LOP->init($class)->import_methods($caller, qw(
+    Finglware::LOP->init($class)->import_methods($caller, qw(
         after
         before
         around
@@ -16,7 +16,7 @@ sub import {
 sub after {
     my ($name, $code) = @_;
 
-    Class::LOP->init(caller())->add_hook(
+    Finglware::LOP->init(caller())->add_hook(
         type    => 'after',
         name    => $name,
         method  => $code,
@@ -25,7 +25,7 @@ sub after {
 
 sub before {
     my ($name, $code) = @_;                                                                                                                       
-    Class::LOP->init(caller())->add_hook(
+    Finglware::LOP->init(caller())->add_hook(
         type    => 'before',
         name    => $name,
         method  => $code,
@@ -34,7 +34,7 @@ sub before {
 
 sub around {
     my ($name, $code) = @_;                                                                                                                       
-    Class::LOP->init(caller())->add_hook(
+    Finglware::LOP->init(caller())->add_hook(
         type    => 'around',
         name    => $name,
         method  => $code,
@@ -44,7 +44,7 @@ sub around {
 sub override {
     my ($name, $code) = @_;
 
-    Class::LOP->init(caller())->override_method(
+    Finglware::LOP->init(caller())->override_method(
         $name,
         $code
     );

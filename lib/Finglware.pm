@@ -201,7 +201,7 @@ The best way to describe Finglware, is 'I want a different way of writing Perl 5
 
 =cut
 
-use Class::LOP;
+use Finglware::LOP;
 use Import::Into;
 use Method::Signatures::Simple;
 use B::Hooks::EndOfScope;
@@ -218,7 +218,7 @@ sub import {
     $^H{feature_say}    =
     $^H{feature_state}  = 1;
 
-    Class::LOP->init($caller)
+    Finglware::LOP->init($caller)
         ->warnings_strict
         ->create_constructor;
 
@@ -227,7 +227,7 @@ sub import {
         for my $plugin ($opts{with}) {
             $plugin = 'Finglware::Plugin::' . $plugin;
             eval "use $plugin;";
-            Class::LOP->import::into($plugin);
+            Finglware::LOP->import::into($plugin);
             $plugin->import::into($caller);
         }
         ## Old code where hooks were internal
@@ -241,7 +241,7 @@ sub import {
         #}
     }
 
-    Class::LOP->init($class)
+    Finglware::LOP->init($class)
         ->import_methods($caller, @methods);
 
     Method::Signatures::Simple->import::into($caller);
@@ -273,7 +273,7 @@ sub attr_set {
 
 sub extends {
     my (@mothers) = @_;
-    Class::LOP->init(caller())
+    Finglware::LOP->init(caller())
         ->extend_class(@mothers);
 }
 
