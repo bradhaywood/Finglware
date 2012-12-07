@@ -1,6 +1,6 @@
 #!perl
 use Test::More tests => 1;
-use Finglware with => 'hooks';
+use Finglware with => 'Hooks';
 
 func greet() {
     return "Hello, World!";
